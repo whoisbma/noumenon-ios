@@ -14,10 +14,12 @@ class HowManyViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var valueTextField: UITextField!
     @IBOutlet weak var measureTextField: UITextField!
+    @IBOutlet weak var questionLabel: UILabel!
     
     var value : String?
     var measurement : String?
     var enteredHowMany : String?
+    var enteredVerb : String?
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if (textField == valueTextField) {
@@ -26,6 +28,7 @@ class HowManyViewController: UIViewController, UITextFieldDelegate {
         } else {
             measurement = textField.text
             println(measurement)
+            questionLabel.text = "How many " + measurement! + " did you " + enteredVerb! + "?"
         }
         if (measurement != nil && value != nil) {
             if (value != "" && measurement != "") {
@@ -44,6 +47,11 @@ class HowManyViewController: UIViewController, UITextFieldDelegate {
         println(value)
         measurement = measureTextField.text
         println(measurement)
+        if (measurement != nil) {
+            questionLabel.text = "How many " + measurement! + " did you " + enteredVerb! + "?"
+        } else {
+            questionLabel.text = "How many did you " + enteredVerb! + "?"
+        }
         
         okButton.enabled = false
         okButton.hidden = true
@@ -66,6 +74,14 @@ class HowManyViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         okButton.enabled = false
         okButton.hidden = true
+        if (enteredVerb != nil) {
+            println("carried over verb is: " + enteredVerb!)
+            if (measurement != nil) {
+                questionLabel.text = "How many " + measurement! + " did you " + enteredVerb! + "?"
+            } else {
+                questionLabel.text = "How many did you " + enteredVerb! + "?"
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,15 +89,12 @@ class HowManyViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
+        var quantifyScene = segue.destinationViewController as QuantifyViewController
         // Pass the selected object to the new view controller.
+        quantifyScene.enteredVerb = enteredVerb
     }
-    */
 
 }

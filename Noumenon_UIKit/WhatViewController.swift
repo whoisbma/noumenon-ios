@@ -12,8 +12,11 @@ class WhatViewController: UIViewController, UITextFieldDelegate {
 
     var enteredWhat : String?
     
+    var enteredVerb : String?
+    
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var questionLabel: UILabel!
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         enteredWhat = textField.text
@@ -50,6 +53,10 @@ class WhatViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         okButton.enabled = false
         okButton.hidden = true
+        if (enteredVerb != nil) {
+            println("carried over verb is: " + enteredVerb!)
+            questionLabel.text = questionLabel.text! + enteredVerb! + "?"
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,14 +65,13 @@ class WhatViewController: UIViewController, UITextFieldDelegate {
     }
     
 
-    /*
-    // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
+        var quantifyScene = segue.destinationViewController as QuantifyViewController
         // Pass the selected object to the new view controller.
+        quantifyScene.enteredVerb = enteredVerb
     }
-    */
+    
 
 }
